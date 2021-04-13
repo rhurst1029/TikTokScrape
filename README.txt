@@ -26,4 +26,16 @@ To Pull most recent changes from git:
 $ git pull 
 
 
-STARTUP COMMANDS:
+METHOD DESCRIPTIONS:
+findTrending.py:
+1. Finds top trending sounds on tiktok at current date
+2. Takes soundID, returns stats on top users using those songs
+3. (Right now just copied and pasted): Stores Json in the form of:
+{soundID:[{
+     userData1
+},
+{
+    userData2
+}]}
+### Note: We will need to format the query s,t it returns more info on the given SOundID 
+(can be found in the Json returned by trending()) along with user data on each user who has used the song
