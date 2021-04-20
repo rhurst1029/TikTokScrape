@@ -1,6 +1,9 @@
 from TikTokApi import TikTokApi
 import string
 import random
+from datetime import date
+import json
+
 
 
 # THIS LINE
@@ -16,9 +19,9 @@ api = TikTokApi.get_instance(custom_verifyFp = verifyFp)
 # api = TikTokApi.get_instance(custom_verifyFp = verifyFp, use_test_endpoints = True, custom_did = did)
 
 
-# Trending
+
 ids = {}
-count = 300
+count = 200
 trending = api.by_trending(count = count)
 
 for i in trending:
@@ -29,28 +32,75 @@ for i in trending:
 
 
 
-ids2 = {}
-## Filtered is the number of sounds_ids from 'count' (300 rn) that weren't original sounds
-filtered = 0
-## Artist_author is the number of filtered sound ids that have artis/author data
-artist_author = 0
-missing_artist = 0
+artistInfo = {}
+### Initializing primary key for json to be current date
+today = date.today()
+today = today.strftime("%m/%d/%y")
+artistInfo[today] = {}
+
+## ITERATING THROUGH TRENDING SOUND IDS AT CURRENT RUN
 for n in ids:
     music = api.get_music_object_full(n)
-    # ids2[music['music']['id']] = []
-    # ids2[music['music']['id']].append(music['music']['title'
-
-    if music.get('author'):
-        artist_author += 1
-        # print(music)
-    elif music.get('artist'):
-        artist_author += 1
-        # print('artist', '\n','\n','\n', music)
-    else:
-        missing_artist += 1
-        # print('NEITHER', '\n','\n','\n', music)
-filtered += 1
+    artistInfo[today][n] = {}
+    info_obj = artistInfo[today][n]
     
-print('Total_original/300', count - filtered)
-print('total_w_artist_data', artist_author)
-print('total_without_artist_data', missing_artist)
+    if i.get('music'):
+        info_obj['songTitle'] = music.get('music')['title']
+        info_obj['authorName'] = music.get('music')['authorName']
+        info_obj['private'] = music.get('music')['private']
+        info_obj['duration'] = music.get('music')['duration']
+        info_obj['album'] = music.get('music')['album']
+        info_obj['scheduleSearchTime'] = music.get('music')['scheduleSearchTime']
+        info_obj['numTimesUsed'] = music.get('stats')['videoCount']
+        info_obj['artistInfo'] = {}
+        
+    else:
+        print('music object has no music tag')
+        print(music)     
+    
+    info_dict = info_obj['artistInfo']
+    if music.get('author'):
+        info_dict['id'] = music.get('author')['id']
+        info_dict['uniqueId'] = music.get('author')['uniqueId']
+        info_dict['nickname'] = music.get('author')['nickname']
+        info_dict['createTime'] = music.get('author')['createTime']
+        info_dict['verified'] = music.get('author')['verified']
+        info_dict['secUid'] = music.get('author')['secUid']
+        info_dict['relation'] = music.get('author')['relation']
+        info_dict['openFavorite'] = music.get('author')['openFavorite']
+        info_dict['commentSetting'] = music.get('author')['commentSetting']
+        info_dict['duetSetting'] = music.get('author')['duetSetting']
+        info_dict['stitchSetting'] = music.get('author')['stitchSetting']
+        info_dict['privateAccount'] = music.get('author')['privateAccount']
+        
+    elif music.get('artist'):
+        info_dict['id'] = music.get('artist')['id']
+        info_dict['uniqueId'] = music.get('artist')['uniqueId']
+        info_dict['nickname'] = music.get('artist')['nickname']
+        info_dict['createTime'] = music.get('artist')['createTime']
+        info_dict['verified'] = music.get('artist')['verified']
+        info_dict['secUid'] = music.get('artist')['secUid']
+        info_dict['relation'] = music.get('artist')['relation']
+        info_dict['openFavorite'] = music.get('artist')['openFavorite']
+        info_dict['commentSetting'] = music.get('artist')['commentSetting']
+        info_dict['duetSetting'] = music.get('artist')['duetSetting']
+        info_dict['stitchSetting'] = music.get('artist')['stitchSetting']
+        info_dict['privateAccount'] = music.get('artist')['privateAccount']
+    else:
+        info_dict['id'] = 'NA'
+        info_dict['uniqueId'] = 'NA'
+        info_dict['nickname'] = 'NA'
+        info_dict['createTime'] = 'NA'
+        info_dict['verified'] = 'NA'
+        info_dict['secUid'] = 'NA'
+        info_dict['relation'] = 'NA'
+        info_dict['openFavorite'] = 'NA'
+        info_dict['commentSetting'] = 'NA'
+        info_dict['duetSetting'] = 'NA'
+        info_dict['stitchSetting'] = 'NA'
+        info_dict['privateAccount'] = 'NA'
+
+with open('trendingStats.json', 'w') as fp:
+    json.dump(artistInfo, fp)
+
+
