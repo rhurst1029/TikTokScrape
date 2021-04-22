@@ -1,10 +1,18 @@
 This project serves to predict the top tiktok songs at the end of a given week from data collected throughout the week. 
 
-ACTIVATING VIRTUAL ENVIRONMENT
-        - Activate virtual environment:
-            - python3 -m venv venv
-            - virtualenv venv
-            - source venv/bin/activate
+RUN COMMANDS:
+*** Before running: Make sure that both post and sound CSVs are deleted or the query will act up ***
+*** Current default number of trending sounds to query is 250. TO CHANGE: go to the bottom of findTrending.py and change 'numSongs' variable ***
+*** Current default number of posts per sound to query is 100. TO CHANGE: go to the bottom of findUsers.py and change 'num_posts' variable ***
+RUNNING QUERY:
+$ python3 findTrending.py
+$ python3 findUsers.py
+
+ACTIVATING VIRTUAL ENVIRONMENT:
+      
+    - python3 -m venv venv
+    - virtualenv venv
+    - source venv/bin/activate
 
 
 Git Commands (for Ivy):

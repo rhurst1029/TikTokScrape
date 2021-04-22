@@ -2,13 +2,14 @@ from TikTokApi import TikTokApi
 import pandas as pd
 from operator import itemgetter
 import json
+from datetime import date
 
 # Key last updated 4/20 blaze
 verifyFp = 'verify_kngd0n5c_MNpHdxYL_m64K_4y4O_Aejf_xQKslqaYxk13'
 
 api = TikTokApi.get_instance(custom_verifyFp = verifyFp, use_test_endpoints = True)
 
-# Useful functions
+### Useful functions ### 
 '''
     user_posts: returns an array of dictionaries representing TikToks for a user
     by_username: Returns a dictionary listing TikToks given a user&#39;s username.
@@ -20,20 +21,6 @@ api = TikTokApi.get_instance(custom_verifyFp = verifyFp, use_test_endpoints = Tr
     TikTokUser class:
         get_insights
 '''
-
-# From Ryan: 
-sounds = {'6885449331428558861': ['Jump in the Line (Shake, Senora)', 'Harry Belafonte'], 
-'6826096341966456833': ['Buss It', 'Erica Banks'], 
-'6927076140512135170': ['Bongo cha-cha-cha - Remastered', 'Caterina Valente'], 
-'6921891821358435077': ['strawhatdan', 'STRAWHAT DAN'], 
-'6669854674113317638': ['BREAKFAST CHALLENGE', 'spence'], 
-'6808641827374222085': ['GET WATER OUT OF PHONE SPEAKERS', 'Victoria Bachlet'], '6832618984580335617': ['Stuck in the Middle', 'Tai'], '6816496693551450885': ['Astronaut In The Ocean', 'MaskedWolf'], '6769046027488987137': ['FEEL THE GROOVE', 'Queens Road, Fabian Graetz'], '6778968637492430849': ['Blue Blood', 'Heinz Kiessling & Various Artists'], '6746993352891189249': ['Monkeys Spinning Monkeys', 'Kevin MacLeod'], '6948521578766371590': ['Levitating', 'Dua Lipa'], '118053679': ['Pink Panther Intro', 'Henry Mancini']}
-
-# Getting the user keys
-# keys = sounds.keys()
-# real_keys = []
-# for key in keys:
-#     real_keys.append(key)
 
 def get_ids(sounds):
     ''' 
@@ -49,65 +36,68 @@ def get_ids(sounds):
         keys.append(key)
     return keys
 
-top_id = get_ids(sounds)[0]
 
-# Change count to 2000 max
-# info = api.by_sound(top_id)
-# print(info[0])
 
-# df = pd.read_json('trendingStats.json', orient = 'index')
-# print(df.iloc[0][0])
-# print(df)
-
-''' TURN JSON INTO DATAFRAME '''
-# trending_sounds = pd.read_json('trendingStats.json')
-# trending_sounds = trending_sounds.reset_index()
-# trending_sounds = trending_sounds.rename(columns={'index': 'id'})
-# trending_sounds.columns = ['id', '2021-04-20']
-
-def only_id(string):
+def write_ids():
     '''
-    Currently, the index (or now renamed 'id' column) outputs id like such: 
-        before: 1970-01-01 00:00:00.118053679
-        after: 118053679
-    We want only the last 9 digits, which correspond to the id of the song.
+    Takes in literally nothing, Finds and formats the current date, reads in soundIDs.json, and returns list of soundIDs
     '''
-    string = str(string)
-    string = string[-9:]
-    return string
+    today = date.today()
+    today = today.strftime("%m/%d/%y")
+    # Opening csv
+    df = pd.read_csv('trendingStats.csv')
+    ## Subsetting CSV to contain today's runs
+    df = df[df['date_run']== today]
+    soundIDs = df.iloc[:,0].to_list()
+    return soundIDs
 
-# Apply only_id to each row of the id column, so we have a column of ids.
-# trending_sounds['id'] = trending_sounds['id'].apply(only_id)
-ids = [6885449331428558861, 6785326848835488518, 6826096341966456833,
-6927076140512135170, 6921891821358435077, 6808641827374222085]
 
-test_sound = ids
-# print(api.by_sound(test_sound)[0].get('authorStats').keys())
-final = {}
-keys = ['followingCount', 'followerCount', 'heartCount', 'videoCount', 'diggCount', 'heart']
-for i in ids:
-    ### Initializing dict to carry all user data for a given sondID
-    ### {}
-    i = str(i)
-    final[i] = []
-    userData = api.by_sound(i, count = 3)
-    j = 0
-    for h in userData:
-        post_id = h.get('id')
-        final[i].append({})
-        final[i][j]['postID'] = post_id
-        # stats = {}
-        for n in keys:
-            # stats[n] = h.get('authorStats')[n]
-            final[i][j][n] = h.get('authorStats')[n]
-            
-        j +=1
-print(final)
-with open('trendingStats.json', 'w') as fp:
-    json.dump(final, fp)
-
-# print(api.by_sound(test_sound, count = 20))
+def get_post_data(ids, keys, numPosts):
+    '''
+    Main method used for receiving post data for a given soundID. 
+    Takes in:
+        1) ids: List of soundIDs
+        2) keys: Data from postData we want to collect
+        3) numPosts: number of posts to query for a given soundID
+    '''
+    ## Getting date_run attribute
+    today = date.today()
+    today = today.strftime("%m/%d/%y")
+    ### Initializing datastructure for final json dump
+    final = {}
+    for i in ids:
+        ### Converting soundID to string because JSON prefers this for writing and opening
+        i = str(i)
+        ### Initializing an array at the soundID to contain all the data on posts 
+        
     
+        userData = api.by_sound(i, count = numPosts)
+        j = 0
+        for h in userData:
+            post_id = h.get('id')
+            final[post_id] = {}
+            final[post_id]['soundID'] = i
+            final[post_id]['date_run'] = today
+            for n in keys:
+                final[post_id][n] = h.get('authorStats')[n]
+                
+            j +=1
+
+    ## Append to csv file for today's run:
+    data = pd.DataFrame.from_dict(final, orient="index")
+    compression_opts = dict(method='zip',
+                        archive_name='userStats.csv')  
+    data.to_csv('userStats.csv', compression=compression_opts)
+    
+
+
+### Getting list of IDs for today's date
+ids = write_ids()
+
+### List of keys from the post datastructure needed 
+keys = ['followingCount', 'followerCount', 'heartCount', 'videoCount', 'diggCount', 'heart']
+num_posts = 50
+get_post_data(ids, keys, num_posts)
 
 
 
