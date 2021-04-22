@@ -1,33 +1,176 @@
-
-
-#### Case 1: if 'author', then attributes at that key are the same as when there is a key  'artist'
-    ARTIST/AUTHOR KEYS: ['id', 'uniqueId', 'nickname', 'createTime',  'verified', 'secUid',  'relation', 'openFavorite', 'commentSetting', 'duetSetting',  'stitchSetting','privateAccount']
-#### Case 2: if 'neither', then we cannot get attributes for author/artist (shown above as ARTIST/AUTHOR KEYS)
-
-#### TESTING CASES:
-### THE BELOW MEANS THAT OUT OF THE 300 queries sound ids, 299 were original sounds.
-### Out of the 299 original sound id's, 57 had artist/author data, 47 did not 
-Total_filtered/300: 299
-total_w_artist_data: 57
-total_without_artist_data: 47 
-
-## AUTHOR
-##KEYS: music, author, stats, itemlist
-
-##Artist:
-KEYS: music, stats, artist, itemlist  
-
-###NEITHER: 
-KEYS: MUSIC, STATS, ITEMLIST
-
-
-
-### GOAL DATA  STRUCTURE
 {
-'music': {'id': '',  'title': , 'authorName':,  'private': ,  'duration': , 'album': , 'scheduleSearchTime': },
-'stats': {'videoCount': }, 
-'artist/author': {'id':, 'uniqueId':,    'nickname': , 'createTime': , 
-                     'verified':,'secUid': ',  'relation': ,  'openFavorite':,
-                     'commentSetting':,  'duetSetting':,  'stitchSetting': , 'privateAccount':  
-            },
+    "6885449331428558861": [
+        {
+            "postID": "6931126571071802630",
+            "followingCount": 145,
+            "followerCount": 584500,
+            "heartCount": 7200000,
+            "videoCount": 91,
+            "diggCount": 1804,
+            "heart": 7200000
+        },
+        {
+            "postID": "6910726339897068805",
+            "followingCount": 263,
+            "followerCount": 646000,
+            "heartCount": 18300000,
+            "videoCount": 251,
+            "diggCount": 60300,
+            "heart": 18300000
+        },
+        {
+            "postID": "6941084726526561541",
+            "followingCount": 343,
+            "followerCount": 69000,
+            "heartCount": 1900000,
+            "videoCount": 118,
+            "diggCount": 1058,
+            "heart": 1900000
+        }
+    ],
+    "6785326848835488518": [
+        {
+            "postID": "6948527215676116229",
+            "followingCount": 9919,
+            "followerCount": 934900,
+            "heartCount": 8900000,
+            "videoCount": 2652,
+            "diggCount": 39000,
+            "heart": 8900000
+        },
+        {
+            "postID": "6840141559690841349",
+            "followingCount": 3101,
+            "followerCount": 56300,
+            "heartCount": 1200000,
+            "videoCount": 413,
+            "diggCount": 1413,
+            "heart": 1200000
+        },
+        {
+            "postID": "6909227318837890310",
+            "followingCount": 9919,
+            "followerCount": 934900,
+            "heartCount": 8900000,
+            "videoCount": 2652,
+            "diggCount": 39000,
+            "heart": 8900000
+        }
+    ],
+    "6826096341966456833": [
+        {
+            "postID": "6915161059053571333",
+            "followingCount": 588,
+            "followerCount": 63300000,
+            "heartCount": 1400000000,
+            "videoCount": 280,
+            "diggCount": 7309,
+            "heart": 1400000000
+        },
+        {
+            "postID": "6931516767311351045",
+            "followingCount": 71,
+            "followerCount": 1800000,
+            "heartCount": 29600000,
+            "videoCount": 84,
+            "diggCount": 95,
+            "heart": 29600000
+        },
+        {
+            "postID": "6927667361948421382",
+            "followingCount": 150,
+            "followerCount": 542500,
+            "heartCount": 13200000,
+            "videoCount": 220,
+            "diggCount": 775,
+            "heart": 13200000
+        }
+    ],
+    "6927076140512135170": [
+        {
+            "postID": "6944788187034275078",
+            "followingCount": 1856,
+            "followerCount": 181800,
+            "heartCount": 3200000,
+            "videoCount": 87,
+            "diggCount": 20500,
+            "heart": 3200000
+        },
+        {
+            "postID": "6944669720582966533",
+            "followingCount": 169,
+            "followerCount": 7180,
+            "heartCount": 129200,
+            "videoCount": 48,
+            "diggCount": 10200,
+            "heart": 129200
+        },
+        {
+            "postID": "6948114135297150214",
+            "followingCount": 878,
+            "followerCount": 31300,
+            "heartCount": 871600,
+            "videoCount": 512,
+            "diggCount": 2407,
+            "heart": 871600
+        }
+    ],
+    "6921891821358435077": [
+        {
+            "postID": "6921891800655465734",
+            "followingCount": 405,
+            "followerCount": 2400000,
+            "heartCount": 85700000,
+            "videoCount": 291,
+            "diggCount": 7565,
+            "heart": 85700000
+        },
+        {
+            "postID": "6924094404256976134",
+            "followingCount": 118,
+            "followerCount": 1700000,
+            "heartCount": 34300000,
+            "videoCount": 152,
+            "diggCount": 7010,
+            "heart": 34300000
+        },
+        {
+            "postID": "6946240469470891270",
+            "followingCount": 382,
+            "followerCount": 255400,
+            "heartCount": 8600000,
+            "videoCount": 105,
+            "diggCount": 6002,
+            "heart": 8600000
+        }
+    ],
+    "6808641827374222085": [
+        {
+            "postID": "6808650126454803718",
+            "followingCount": 1844,
+            "followerCount": 3700000,
+            "heartCount": 160100000,
+            "videoCount": 1163,
+            "diggCount": 43900,
+            "heart": 160100000
+        },
+        {
+            "postID": "6899238666930031877",
+            "followingCount": 396,
+            "followerCount": 2000000,
+            "heartCount": 69100000,
+            "videoCount": 536,
+            "diggCount": 9300,
+            "heart": 69100000
+        },
+        {
+            "postID": "6950335762101505286",
+            "followingCount": 431,
+            "followerCount": 463900,
+            "heartCount": 30800000,
+            "videoCount": 637,
+            "diggCount": 27900,
+            "heart": 30800000
+        }
+    ]
 }

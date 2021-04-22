@@ -52,7 +52,7 @@ def get_ids(sounds):
 top_id = get_ids(sounds)[0]
 
 # Change count to 2000 max
-info = api.by_sound(top_id)
+# info = api.by_sound(top_id)
 # print(info[0])
 
 # df = pd.read_json('trendingStats.json', orient = 'index')
@@ -87,15 +87,21 @@ final = {}
 keys = ['followingCount', 'followerCount', 'heartCount', 'videoCount', 'diggCount', 'heart']
 for i in ids:
     ### Initializing dict to carry all user data for a given sondID
-    final[i] = {}
+    ### {}
+    i = str(i)
+    final[i] = []
     userData = api.by_sound(i, count = 3)
+    j = 0
     for h in userData:
         post_id = h.get('id')
-        final[i][post_id] = {}
+        final[i].append({})
+        final[i][j]['postID'] = post_id
         # stats = {}
         for n in keys:
             # stats[n] = h.get('authorStats')[n]
-            final[i][post_id][n] = h.get('authorStats')[n]
+            final[i][j][n] = h.get('authorStats')[n]
+            
+        j +=1
 print(final)
 with open('trendingStats.json', 'w') as fp:
     json.dump(final, fp)
