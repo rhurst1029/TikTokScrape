@@ -1,5 +1,11 @@
 This project serves to predict the top tiktok songs at the end of a given week from data collected throughout the week. 
 
+ACTIVATING VIRTUAL ENVIRONMENT
+        - Activate virtual environment:
+            - python3 -m venv venv
+            - virtualenv venv
+            - source venv/bin/activate
+
 
 Git Commands (for Ivy):
 
