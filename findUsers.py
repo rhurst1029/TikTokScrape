@@ -85,9 +85,7 @@ def get_post_data(ids, keys, numPosts):
 
     ## Append to csv file for today's run:
     data = pd.DataFrame.from_dict(final, orient="index")
-    compression_opts = dict(method='zip',
-                        archive_name='userStats.csv')  
-    data.to_csv('userStats.csv', compression=compression_opts)
+    data.to_csv('userStats.csv')
     
 
 
@@ -96,7 +94,7 @@ ids = write_ids()
 
 ### List of keys from the post datastructure needed 
 keys = ['followingCount', 'followerCount', 'heartCount', 'videoCount', 'diggCount', 'heart']
-num_posts = 50
+num_posts = 3
 get_post_data(ids, keys, num_posts)
 
 

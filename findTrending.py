@@ -104,6 +104,6 @@ def get_trending(numSongs):
     df.to_csv('trendingStats.csv')
 
 
-numSongs = 40
+numSongs = 5
 get_trending(numSongs)
  
