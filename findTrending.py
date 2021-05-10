@@ -14,11 +14,6 @@ did = ''.join(random.choice(string.digits) for num in range(19))
 
 api = TikTokApi.get_instance(custom_verifyFp = verifyFp)
 
-# When fp stops working:
-
-# THIS LINE
-# api = TikTokApi.get_instance(custom_verifyFp = verifyFp, use_test_endpoints = True, custom_did = did)
-
 
 def get_trending(numSongs):
     '''
@@ -104,6 +99,6 @@ def get_trending(numSongs):
     df.to_csv('trendingStats.csv')
 
 
-numSongs = 5
+numSongs = 300
 get_trending(numSongs)
  
