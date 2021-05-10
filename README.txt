@@ -1,6 +1,12 @@
 
 This project serves to predict the top tiktok songs at the end of a given week from data collected throughout the week.
 
+
+ACTIVATING VIRTUAL ENVIRONMENT:
+$ python3 -m venv venv
+$ virtualenv venv
+$ source venv/bin/activate
+
 METHOD DESCRIPTIONS:
 
 findTrending.py:
@@ -21,7 +27,7 @@ $ python3 findTrending.py
 $ python3 findUsers.py
 
 
-Git Commands (for Ivy):
+Git Commands:
 
 ** INITIALIZING GIT REPO ON LOCAL MACHINE: **
 1. pen terminal to clone git repo from command line:
@@ -34,7 +40,7 @@ $ git clone https://github.com/rhurst1029/TikTokScrape.git
 4. To PUSH changes: Make any changes you want the run:
 
 $ git add -A 
-$ git commit -m "Ivys first commit"
+$ git commit -m "My First Commit"
 $ git push origin master
 
 ** PULLING CHANGES BEFORE WORK **
@@ -46,10 +52,7 @@ To Pull most recent changes from git:
 $ git pull 
 
 
-ACTIVATING VIRTUAL ENVIRONMENT:
-$ python3 -m venv venv
-$ virtualenv venv
-$ source venv/bin/activate
+
 
 
 
