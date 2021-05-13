@@ -18,6 +18,18 @@ findUsers.py:
 2. Queries 'num_posts' # of posts using a given soundID, collects, and formats data 
 
 
+Final_Project.ipynb
+- The Jupyter Notebook version of our final project code, which includes our data cleaning, EDA, model building, tuning and results.
+- The csv datasets are required to be downloaded to the notebook in order to run.
+
+Final_Project.pdf
+- PDF version of our Final Project Jupyter Notebook.
+
+datasets:
+- CSVs with "User" and "UserStats" come from the findUsers.py web scraper.
+- CSVs with "trendingStats" come from the findTrending.py web scraper.
+
+
 *** Before running: Make sure that both post and sound CSVs are deleted or the query will act up ***
 *** Current default number of trending sounds to query is 250. TO CHANGE: go to the bottom of findTrending.py and change 'numSongs' variable ***
 *** Current default number of posts per sound to query is 100. TO CHANGE: go to the bottom of findUsers.py and change 'num_posts' variable ***
